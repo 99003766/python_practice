@@ -1,5 +1,5 @@
 import pandas as pd
-book1 = pd.read_excel(r'Book1.xlsx', sheet_name='Sheet1')
-book2 = pd.read_excel(r'Book1.xlsx', sheet_name='Sheet2')
-f3 = book1.merge(book2, on ="Gmail", how = "left")
+book1 = pd.read_excel(r'Excel.xlsx', sheet_name='Sheet1')
+book2 = pd.read_excel(r'Excel.xlsx', sheet_name='Sheet2')
+f3 = book1.combine(book2, on="PS_NUMBER", how="left")
 print(f3)
