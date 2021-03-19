@@ -1,10 +1,16 @@
 import re
 
-txt = "gjsimhareddy.39@gmail.com"
+txt =input("enter mail id: ")
 x = re.search("@gmail.com", txt)
-print(x, "is valid")
-num = "9010365337"
+if x is None:
+    print(txt, "is not  valid")
+else:
+    print(txt,"is  valid")
 
+
+num =input("enter number: ")
 y = re.search("[a-zA-Z]", num)
-
-print(y, "not valid")
+if y is None:
+    print(num, "is valid")
+else:
+    print(num,"is not valid")

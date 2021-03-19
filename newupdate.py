@@ -13,6 +13,7 @@ for sheet in sheets:
     df1 = pd.DataFrame(y[y['Official Email Address'] == yin], columns=y.columns)
     # here we are joining all the data of that particular person
     df_total = df_total.join(df1, how='outer', lsuffix='left', rsuffix='right')
+
 # taking the path of the excel sheet
 path = "Excel.xlsx"
 book = load_workbook(path)
