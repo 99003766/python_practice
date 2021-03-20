@@ -2,6 +2,7 @@ import openpyxl
 import pandas as pd
 from matplotlib import pyplot as plt
 from openpyxl import Workbook
+from openpyxl.chart import BarChart, Reference
 
 excel_file = Workbook()
 #import openpyxl
@@ -40,9 +41,9 @@ for g in range(1, n+1):
                             excel_sheet[str1] = str(sh.cell(row=1, column=c).value)
                             excel_sheet[str2] = sh.cell(row=r, column=c).value
                         else:
-                            str1 = 'E' + str(t)
+                            str1 = chr(67+g) + str(t)
 
-                            str2 = 'F' + str(t)
+                            str2 = chr(68+g) + str(t)
                             t = t + 1
                             excel_sheet[str1] = str(sh.cell(row=1, column=c).value)
                             excel_sheet[str2] = sh.cell(row=r, column=c).value
@@ -62,37 +63,47 @@ for g in range(1, n+1):
                             excel_sheet[str1] = str(sh.cell(row=1, column=c).value)
                             excel_sheet[str2] = sh.cell(row=r, column=c).value
                         else:
-                            str1 = 'E' + str(t)
+                            str1 = chr(67+g) + str(t)
 
-                            str2 = 'F' + str(t)
+                            str2 = chr(68+g) + str(t)
                             t = t + 1
                             excel_sheet[str1] = str(sh.cell(row=1, column=c).value)
                             excel_sheet[str2] = sh.cell(row=r, column=c).value
 
     excel_file.save(filename="final.xlsx")
 #for ploting bar graph
-excel_file = Workbook()
-wb = openpyxl.load_workbook('studentinfo.xlsx')
-sh = wb['Sheet2']
-l=[]
-p=[]
-t=1
-max_r=sh.max_row
-max_c=sh.max_column
-for r in range(2,max_r+1):
-    l.append(sh.cell(row=r, column=7).value)
-for r in range(2,max_r+1):
-    p.append(sh.cell(row=r, column=8).value)
-global_num=pd.DataFrame(p,l)
-print(global_num)
-str1='A'+str(t)
-t=t+1
-dates = pd.to_datetime(global_num.index)
-plt.plot(global_num)
-plt.show()
-plt.savefig('plot.png')
-writer = pd.ExcelWriter('Final.xlsx', engine = 'xlsxwriter')
-global_num.to_excel(writer, sheet_name='Sheet1')
-worksheet = writer.sheets['Sheet1']
-worksheet.insert_image(str1,'plot.jpeg')
-writer.save()
+
+wb = openpyxl.load_workbook('Final.xlsx')
+
+excel_file = wb
+# Get workbook active sheet
+# from the active attribute.
+sheet = wb['MasterSheet11']
+
+# write o to 9 in 1st column of the active sheet
+# create data for plotting
+values = Reference(sheet, min_col=2, min_row=9,
+                   max_col=sheet.max_column, max_row=17)
+
+# Create object of BarChart class
+chart = BarChart()
+
+# adding data to the Bar chart object
+chart.add_data(values)
+
+# set the title of the chart
+chart.title = " BAR-CHART "
+
+# set the title of the x-axis
+chart.x_axis.title = " X_AXIS "
+
+# set the title of the y-axis
+chart.y_axis.title = " Y_AXIS "
+
+# add chart to the sheet
+# the top-left corner of a chart
+# is anchored to cell E2 .
+sheet.add_chart(chart, "E2")
+
+# save the file
+wb.save("Final.xlsx")

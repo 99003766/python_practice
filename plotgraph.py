@@ -1,8 +1,7 @@
 import openpyxl
 import pandas as pd
-from matplotlib import pyplot as plt
 from openpyxl import Workbook
-
+from matplotlib import pyplot as plt
 excel_file = Workbook()
 #import openpyxl
 #from openpyxl import Workbook
@@ -70,9 +69,8 @@ for g in range(1, n+1):
                             excel_sheet[str2] = sh.cell(row=r, column=c).value
 
     excel_file.save(filename="final.xlsx")
-#for ploting bar graph
-excel_file = Workbook()
-wb = openpyxl.load_workbook('studentinfo.xlsx')
+
+#ploting the bar graph
 sh = wb['Sheet2']
 l=[]
 p=[]
@@ -90,9 +88,14 @@ t=t+1
 dates = pd.to_datetime(global_num.index)
 plt.plot(global_num)
 plt.show()
-plt.savefig('plot.png')
-writer = pd.ExcelWriter('Final.xlsx', engine = 'xlsxwriter')
-global_num.to_excel(writer, sheet_name='Sheet1')
-worksheet = writer.sheets['Sheet1']
-worksheet.insert_image(str1,'plot.jpeg')
-writer.save()
+plt.savefig('plot.xlsx')
+
+"""
+enter name: Jayasimha Reddy Ganapuram
+enter mailid: jayasimha.ganapuram@ltts.com
+Check in ExcelFile: 
+enter 2  person information
+enter ps number: 99003737
+enter name: Jeshwanth Kumar Ega
+enter mailid: jeshwanth.ega@ltts.com
+"""
